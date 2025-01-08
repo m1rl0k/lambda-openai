@@ -16,6 +16,77 @@ A serverless function that leverages OpenAI's GPT-3.5-turbo to translate SQS mes
 - [Contributing](#contributing)
 - [License](#license)
 
+## Use Cases
+
+### API Message Translation & Storage
+This solution is perfect for scenarios where you need to process, simplify, or enhance API-generated messages before storing them. Common use cases include:
+
+1. **Customer Support Integration**
+   ```json
+   // Original SQS Message from API
+   {
+     "ticket_id": "T123",
+     "customer_message": "Unable to access the platform despite multiple attempts with correct credentials",
+     "timestamp": "2024-01-07T10:30:00Z"
+   }
+   
+   // AI-Translated and Stored in Database
+   {
+     "ticket_id": "T123",
+     "original_message": "Unable to access the platform despite multiple attempts with correct credentials",
+     "translated_message": "Customer can't log in even with the right password",
+     "sentiment": "frustrated",
+     "category": "login_issues",
+     "timestamp": "2024-01-07T10:30:00Z"
+   }
+   ```
+
+2. **Technical Log Processing**
+   ```json
+   // Original SQS Message from API
+   {
+     "log_id": "L456",
+     "error_message": "NullPointerException in UserAuthenticationService.validateToken() at line 234",
+     "severity": "ERROR"
+   }
+   
+   // AI-Translated and Stored in Database
+   {
+     "log_id": "L456",
+     "original_message": "NullPointerException in UserAuthenticationService.validateToken() at line 234",
+     "translated_message": "Authentication failed because the user's login token was missing",
+     "recommended_action": "Check if token is being properly passed in the request header",
+     "severity": "ERROR"
+   }
+   ```
+
+3. **Sales Data Enhancement**
+   ```json
+   // Original SQS Message from API
+   {
+     "sale_id": "S789",
+     "notes": "Cust req spec conf w/ 3yr maint plan + custom impl",
+     "value": "50000"
+   }
+   
+   // AI-Translated and Stored in Database
+   {
+     "sale_id": "S789",
+     "original_notes": "Cust req spec conf w/ 3yr maint plan + custom impl",
+     "translated_notes": "Customer requested special configuration with a 3-year maintenance plan and custom implementation",
+     "key_requirements": ["special_config", "maintenance_plan", "custom_implementation"],
+     "contract_duration": "3 years",
+     "value": "50000"
+   }
+   ```
+
+### Benefits
+- Transforms cryptic API messages into clear, actionable information
+- Enriches data with AI-generated insights and categorizations
+- Maintains original message while adding translated/enhanced versions
+- Enables better reporting and analysis through structured data
+- Automates the process of message interpretation and categorization
+
 ## Overview
 
 The AWS Lambda SQS Translator is a serverless application that:
